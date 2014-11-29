@@ -1,18 +1,26 @@
-<html>
-	<head>
-		<script src="js/mail-generator.js"></script>
-		<link href="css/style.css" rel="stylesheet" media="screen">
-    <script>
-      window.onload = function(){
-        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
-        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
-        
-      };
-    </script>
-	</head>
-	<body>
-		<div class="container" id="main">
-			Build Me!
-		</div>
-	</body>
-</html>
+ <html>
+        <head>
+              <script src="js/mail-generator.js"></script>
+              <link href="css/style.css" rel="stylesheet" media="screen">
+              <script>
+
+                     window.onload= function(){
+                                table = []; loadGeeMails();
+
+                      var inbox= "<table id = 'inbox' >";
+                                   inbox += "<tr> <th>Sender</th> <th>Subject</th> <th>Date</th> </tr>";
+                                       for(var i = 0; i < 10; i++){
+                                        email =  generateMessage();
+                                           table[i] = email;
+                                           inbox += "<td>" + email.sender + "</td> <td>" + email.subject + "</td> <td>" + email.date + "</td>";
+                                           inbox += "</tr>";
+                                        }
+                                  document.getElementById("emails").innerHTML = inbox;
+                        };
+              </script>
+        </head>
+          <body>
+             <h1>DevLeague Geemail</h1>
+               <div class="left" id="emails"></div>
+          </body>
+ </html>
