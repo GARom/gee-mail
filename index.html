@@ -2,25 +2,42 @@
         <head>
               <script src="js/mail-generator.js"></script>
               <link href="css/style.css" rel="stylesheet" media="screen">
+              <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
               <script>
-
-                     window.onload= function(){
-                                table = []; loadGeeMails();
-
-                      var inbox= "<table id = 'inbox' >";
-                                   inbox += "<tr> <th>Sender</th> <th>Subject</th> <th>Date</th> </tr>";
-                                       for(var i = 0; i < 10; i++){
-                                        email =  generateMessage();
-                                           table[i] = email;
-                                           inbox += "<td>" + email.sender + "</td> <td>" + email.subject + "</td> <td>" + email.date + "</td>";
-                                           inbox += "</tr>";
-                                        }
-                                  document.getElementById("emails").innerHTML = inbox;
-                        };
-              </script>
+                    window.onload = function() {
+                            loadGeeMails();
+                        function toggleBody(t) {
+                            $(t).next().slideToggle();
+                        }
+                        function loadGeeMails() {
+                            for (body in window.geemails) {
+                                showMessage(window.geemails[body]);
+                            }
+                        }
+                        function showMessage(show) {
+                            var present = document.createElement('div');
+                                present.onclick = function(){toggleBody(this)};
+                                present.innerHTML = '<ul id="menu"> <li>' + show.sender + '</li>    <li>' + show.subject + '</li>   <li>' + show.date+ '</li></ul>';
+                            document.getElementById('emails').appendChild(present);
+                            var conceal = document.createElement('div');
+                                conceal.style.display = 'none';
+                                conceal.innerHTML = show.body;
+                            document.getElementById('emails').appendChild(conceal);
+                        }
+                    }
+            </script>
+            <style>
+            ul#menu li {
+                    display:inline;
+            }
+            </style>
         </head>
-          <body>
-             <h1>DevLeague Geemail</h1>
-               <div class="left" id="emails"></div>
-          </body>
- </html>
+                <body>
+                    <h1>DevLeague Geemail</h1>
+                    <div class= "geemails" id= "emails">
+                        <script type="text/javascript">
+                            document.write("Inbox (" + geemails.length + ")");
+                        </script>
+                    </div>
+                </body>
+</html>
